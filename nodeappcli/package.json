@@ -1,19 +1,16 @@
 {
   "name": "@sumeettanpure/nodeappcli",
-  "version": "1.0.0",
-  "description": "A simple CLI tool that prints a random motivational quote",
+  "version": "1.0.1",
+  "description": "A CLI tool that prints random motivational quotes",
   "main": "cli.js",
   "bin": {
-    "quote-cli": "./cli.js"
+    "quotes-cli": "./cli.js"
   },
   "scripts": {
     "test": "jest"
   },
-  "keywords": ["CLI", "quotes", "motivational"],
-  "author": "Your Name",
-  "license": "MIT",
-  "dependencies": {},
   "devDependencies": {
     "jest": "^29.0.0"
-  }
+  },
+  "license": "MIT"
 }
