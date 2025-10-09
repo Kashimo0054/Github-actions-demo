@@ -1,4 +1,4 @@
-name: Run Test
+name: Node.js CLI CI/CD
 
 on:
   push:
@@ -6,6 +6,8 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
+  release:
+    types: [published]  # triggers when a release is published
 
 jobs:
   test:
@@ -26,3 +28,27 @@ jobs:
       - name: Run tests
         working-directory: ./nodeappcli
         run: npm test
+
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release' && github.event.action == 'published'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org/'
+
+      - name: Install dependencies
+        working-directory: ./nodeappcli
+        run: npm install
+
+      - name: Publish to NPM
+        working-directory: ./nodeappcli
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
