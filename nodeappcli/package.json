@@ -1,5 +1,5 @@
 {
-  "name": "nodeappcli",
+  "name": ""@sumeettanpure/nodeappcli"",
   "version": "1.0.0",
   "description": "A simple CLI tool that prints a random motivational quote",
   "main": "cli.js",
