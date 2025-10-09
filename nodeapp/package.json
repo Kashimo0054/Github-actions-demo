@@ -1,0 +1,29 @@
+{
+  "name": "gitdemo",
+  "version": "1.0.0",
+  "description": "A simple demo project for GitHub Actions",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --passWithNoTests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saurabhporwal/demo1.git"
+  },
+  "keywords": [
+    "github",
+    "actions",
+    "demo"
+  ],
+  "author": "Your Name",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^29.0.0"
+  },
+  "jest": {
+    "testMatch": [
+      "**/greet.test.js"
+    ]
+  }
+}
