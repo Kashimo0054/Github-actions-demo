@@ -1,4 +1,4 @@
-const { getRandomQuote, quotes } = require("../quotes");
+const { getRandomQuote, quotes } = require("./quotes");
 
 describe("CLI Random Quote Generator", () => {
   test("returns a string", () => {
