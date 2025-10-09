@@ -25,7 +25,8 @@ jobs:
       - name: Run tests
         working-directory: ./nodeappcli  # Change working directory to your application folder
         run: npm test  # This will run all tests, including greet.test.js
-publish:
+
+  publish:
   needs: test
   runs-on: ubuntu-latest
   if: github.event_name == 'release' && github.event.action == 'published'
