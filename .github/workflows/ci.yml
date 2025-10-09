@@ -1,10 +1,11 @@
-
 name: Run Tests
 
 on:
   push:
     branches: [ main ]
   workflow_dispatch:  # Allows manual triggering of the workflow
+  release:
+    types: [published]  # Needed to trigger publish on releases
 
 jobs:
   test:
@@ -19,33 +20,33 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        working-directory: ./nodeappcli  # Change working directory to your application folder
+        working-directory: ./nodeappcli
         run: npm install
 
       - name: Run tests
-        working-directory: ./nodeappcli  # Change working directory to your application folder
-        run: npm test  # This will run all tests, including greet.test.js
+        working-directory: ./nodeappcli
+        run: npm test
 
-  publish:
-  needs: test
-  runs-on: ubuntu-latest
-  if: github.event_name == 'release' && github.event.action == 'published'
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+  publish:   # ✅ must be indented under jobs
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release' && github.event.action == 'published'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-        registry-url: 'https://registry.npmjs.org/'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org/'
 
-    - name: Install dependencies
-      working-directory: ./nodeappcli
-      run: npm install
+      - name: Install dependencies
+        working-directory: ./nodeappcli
+        run: npm install
 
-    - name: Publish to NPM
-      working-directory: ./nodeappcli
-      run: npm publish --access public
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish to NPM
+        working-directory: ./nodeappcli
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
